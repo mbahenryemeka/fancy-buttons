@@ -1,13 +1,14 @@
 import React from 'react'; //optional
 import { useState } from 'react';
 
-function AngryButton(){
+function AngryButton(props){
   const [anger, setAnger] = useState()
 
   return (
-    <button className="AngryButton">
-      <span>Don't click me too much! </span>
-      <span>Rawr!</span>
+    <button style={{ backgroundColor: `rgba(255,0,0,${anger})`}}  className="AngryButton">
+      {anger < 1 && <span>Don't click me too much! </span>}
+      {anger > 1 && <span>Rawr!</span>}
+      
     </button>
   );
 }

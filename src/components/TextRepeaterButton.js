@@ -1,7 +1,7 @@
 import React from 'react'; //optional
 import { useState } from 'react';
 
-function TextRepeaterButton() {
+function TextRepeaterButton(props) {
   const [repetitions, setRepetitions] = useState();
   return (
     <button className="TextRepeaterButton">
