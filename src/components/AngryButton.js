@@ -10,7 +10,9 @@ function AngryButton(props){
     } else {
       setAnger(0);
     }
+    props.increaseAnger(0.1);
   }
+ 
 
   return (
     <button style={{ backgroundColor: `rgba(255,0,0,${anger})`}} onClick={() => handleClick(0.1)} className="AngryButton">
