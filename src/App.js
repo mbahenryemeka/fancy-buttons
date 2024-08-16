@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { useState } from 'react';
 import './App.css';
 import AngryButton from './components/AngryButton'
@@ -7,29 +7,26 @@ import LightSwitchButton from './components/LightSwitchButton'
 import TextRepeaterButton from './components/TextRepeaterButton'
 
 function App() {
-  const [angryApp, setAngryApp] = useState(0)
-  const increaseAnger = (amount) => {
-    if (angryApp < 1) {
-      setAngryApp(angryApp + amount);
-    } else {
-      setAngryApp(0);
-    }
-  }
+  const [angryApp, dispatch] = useReducer ((angryApp, amount) => {
+    return angryApp > 1 ? 0 : angryApp + amount;
+  }, 0); 
+
   const [light, setLight] = useState('off');
+  const dark = (light === 'off') ? 'dark' : ' ';
   const switchLight = () => {
     setLight(light === "on" ? "off" : "on");
-    increaseAnger(0.1);
+    dispatch(0.1);
   }
-  const dark = (light === 'off') ? 'dark' : ' ';
+ 
 
   return (
     <div className={`App ${dark}`}>
       <h1>{angryApp < 1 ? "Fancy Buttons!" : "YOU'RE CLICKING TOO MANY BUTTONS!"}</h1>
       <section>
-        <AngryButton increaseAnger={increaseAnger} />
-        <CounterButton increaseAnger={increaseAnger} />
-        <LightSwitchButton light={light} switchLight={switchLight} increaseAnger={increaseAnger} />
-        <TextRepeaterButton increaseAnger={increaseAnger} />
+        <AngryButton increaseAnger={dispatch} />
+        <CounterButton increaseAnger={dispatch} />
+        <LightSwitchButton light={light} switchLight={switchLight} increaseAnger={dispatch} />
+        <TextRepeaterButton increaseAnger={dispatch} />
       </section>
     </div>
   );
